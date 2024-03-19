@@ -1,6 +1,7 @@
 package initializers
 
 import (
+	"fmt"
 	"log"
 
 	"gorm.io/driver/mysql"
@@ -12,7 +13,9 @@ var DB *gorm.DB
 func ConnectToDB() {
 	var err error
 
-	dsn := "root:mysqlpass@tcp(127.0.0.1:3306)/stock"
+	DB_PASSWORD := CONFIG.DB_PASSWORD
+
+	dsn := fmt.Sprintf("root:%s@tcp(127.0.0.1:3306)/stock", DB_PASSWORD)
 
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
 		CreateBatchSize: 1000,
